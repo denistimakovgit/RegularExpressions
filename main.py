@@ -1,6 +1,7 @@
 ## Читаем адресную книгу в формате CSV в список contacts_list:
 import csv
 import re
+from Decorator import logger
 
 with open("phonebook_raw.csv") as f:
     rows = csv.reader(f, delimiter=",")
@@ -9,6 +10,7 @@ with open("phonebook_raw.csv") as f:
 ## 1. Выполните пункты 1-3 задания.
 ## Ваш код
 
+@logger
 def formated_contacts_list(contacts_list):
     '''
     функция на вход принимает список контактов
@@ -35,6 +37,7 @@ def formated_contacts_list(contacts_list):
 
     return contacts_list
 
+@logger
 def normalize_contacts(contacts_list):
     '''
     Функция принимает на вход список контактов и форматирует ФИО, раскладывая фамилию, имя и отчество
@@ -58,6 +61,7 @@ def normalize_contacts(contacts_list):
 
     return fixed_phonebook
 
+@logger
 def dedublicated_contacts():
     '''
     функция объединяющая все дублирующиеся записи о человеке в одну строку
@@ -75,7 +79,7 @@ def dedublicated_contacts():
                     doubles_counter[fio][i] = row[i]
         else:
             doubles_counter[fio] = row
-            
+
     # создаем список для сохранения дедублицированных клиентов
     result = []
     for res in doubles_counter.values():
